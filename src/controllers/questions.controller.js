@@ -4,9 +4,9 @@ const db = require("../database/database");
 const getQuestions = async (req, res) => {
   try {
     const [rows] = await db.pool.query("SELECT * FROM preguntas");
-    json(rows);
+    res.json(rows);
   } catch (error) {
-    return res.status(500).json({ message: "Algo ha ido mal" });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
@@ -18,11 +18,11 @@ const getQuestion = async (req, res) => {
       [id]
     );
     if (rows.length <= 0) {
-      return res.status(404).json({ message: "Pregunta no encontrada" });
+      return res.status(404).json({ message: "Question not found" });
     }
-    json(rows[0]);
+    res.json(rows[0]);
   } catch (error) {
-    return res.status(500).json({ message: "Algo ha ido mal" });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
