@@ -1,12 +1,14 @@
 // Conexion a la BD
 const db = require("../database/database");
 
+const { handleErrorResponse } = require("../util/handleError");
+
 const getQuestions = async (req, res) => {
   try {
     const [rows] = await db.pool.query("SELECT * FROM preguntas");
     res.json(rows);
   } catch (error) {
-    return res.status(500).json({ message: "Something went wrong" });
+    handleErrorResponse(res);
   }
 };
 
@@ -18,11 +20,11 @@ const getQuestion = async (req, res) => {
       [id]
     );
     if (rows.length <= 0) {
-      return res.status(404).json({ message: "Question not found" });
+      return handleErrorResponse(res, "Question not found", 404);
     }
-    res.json(rows[0]);
+    res.json(rows);
   } catch (error) {
-    return res.status(500).json({ message: "Something went wrong" });
+    handleErrorResponse(res);
   }
 };
 

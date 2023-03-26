@@ -1,9 +1,9 @@
 const express = require("express");
 
 // Routes
-const indexRoutes = require("./routes/index.routes");
-const participantesRoutes = require("./routes/users.router");
-const preguntasRoutes = require("./routes/questions.router");
+const indexRoutes = require("./routes");
+const participantesRoutes = require("./routes/users");
+const preguntasRoutes = require("./routes/questions");
 
 // Swagger
 const { swaggerDocs } = require("./util/swagger");
@@ -14,9 +14,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/", indexRoutes);
-app.use("/users", participantesRoutes);
-app.use("/questions", preguntasRoutes);
+app.use("/", require("./routes"));
 
 app.listen(3000, () => {
   swaggerDocs(app);
