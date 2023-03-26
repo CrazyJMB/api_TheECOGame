@@ -15,9 +15,10 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const { user } = req.params;
-    const [rows] = await db.pool.query("SELECT * FROM user WHERE user LIKE ?", [
-      user,
-    ]);
+    const [rows] = await db.pool.query(
+      "SELECT * FROM user WHERE username LIKE ?",
+      [user]
+    );
     if (rows.length <= 0) {
       return handleErrorResponse(res, "User not found", 404);
     }
@@ -55,7 +56,7 @@ const getPassword = async (req, res) => {
   try {
     const { user } = req.params;
     const [rows] = await db.pool.query(
-      "SELECT password FROM user WHERE user LIKE ?",
+      "SELECT password FROM user WHERE username LIKE ?",
       [user]
     );
     if (rows.length <= 0) {
