@@ -54,6 +54,15 @@ const router = Router();
  */
 router.get("/", questionController.getQuestions);
 
+router.get("/:dif/", questionController.getQuestionsByDifficult);
+
+router.get("/:dif/random", questionController.getRandomQuestionByDifficult);
+
+router.get(
+  "/:dif/:userId/",
+  questionController.getRandomQuestionForSpecificUser
+);
+
 /**
  * @openapi
  * /questions:
