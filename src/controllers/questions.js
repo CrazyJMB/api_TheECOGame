@@ -1,5 +1,5 @@
 // Conexion a la BD
-const db = require("../database/database");
+const db = require("../services/database");
 
 const { handleErrorResponse } = require("../util/handleError");
 

@@ -13,7 +13,7 @@ const options = {
       description: "This is TheECOGame API description XD",
     },
   },
-  apis: [`${path.join("src/routes/*.js")}`],
+  apis: ["./routes/*.js"],
 };
 
 // Docs in JSON format

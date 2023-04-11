@@ -16,9 +16,4 @@ fs.readdirSync(pathRouter).filter((file) => {
   }
 });
 
-router.get("*", (req, res) => {
-  res.status(501);
-  res.send({ error: "Not implemented" });
-});
-
 module.exports = router;

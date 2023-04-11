@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const preguntas = require("../controllers/questions");
+const questionController = require("../controllers/questions");
 
 const router = Router();
 
@@ -52,7 +52,7 @@ const router = Router();
  *                   type: string
  *                   example: Internal server error.
  */
-router.get("/", preguntas.getQuestions);
+router.get("/", questionController.getQuestions);
 
 /**
  * @openapi
@@ -103,6 +103,6 @@ router.get("/", preguntas.getQuestions);
  *                   type: string
  *                   example: Internal server error.
  */
-router.get("/:id", preguntas.getQuestion);
+router.get("/:id", questionController.getQuestion);
 
 module.exports = router;

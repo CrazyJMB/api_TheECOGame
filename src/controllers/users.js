@@ -1,5 +1,5 @@
 // Conexion a la BD
-const db = require("../database/database");
+const db = require("../services/database");
 
 const { handleErrorResponse } = require("../util/handleError");
 
@@ -31,6 +31,14 @@ const getUser = async (req, res) => {
 // TODO: Create user
 const createUser = async (req, res) => {
   try {
+    const {
+      username,
+      name = null,
+      surname = null,
+      password,
+      email,
+      score = 0,
+    } = req.body;
   } catch (error) {
     handleErrorResponse(res);
   }
