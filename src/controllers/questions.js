@@ -21,7 +21,7 @@ const getQuestion = async (req, res) => {
     if (rows.length <= 0) {
       return handleErrorResponse(res, "Question not found", 404);
     }
-    res.json(rows);
+    res.json(rows[0]);
   } catch (error) {
     handleErrorResponse(res);
   }
@@ -37,7 +37,7 @@ const getRandomQuestionForSpecificUser = async (req, res) => {
     if (rows.length <= 0) {
       return handleErrorResponse(res, "Question not found", 404);
     }
-    res.json(rows);
+    res.json(rows[0]);
   } catch (error) {
     handleErrorResponse(res);
   }
@@ -57,7 +57,7 @@ const getQuestionsByDifficult = async (req, res) => {
         404
       );
     }
-    res.json(rows);
+    res.json(rows[0]);
   } catch (error) {
     handleErrorResponse(res);
   }
@@ -77,7 +77,7 @@ const getRandomQuestionByDifficult = async (req, res) => {
         404
       );
     }
-    res.json(rows);
+    res.json(rows[0]);
   } catch (error) {
     console.log(error);
     handleErrorResponse(res);

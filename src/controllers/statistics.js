@@ -3,13 +3,27 @@ const db = require("../services/database");
 
 const { handleErrorResponse } = require("../util/handleError");
 
-const getNumChallengesPlayed = async (req, res) => {
+const getStatistic = async (req, res) => {
   try {
-    const { userId, dif } = req.params;
+    const { userId } = req.params;
     const [rows] = await db.pool.query(
-      "SELECT id, start_date, end_date, (SELECT COUNT(*) FROM game_challenge WHERE game_challenge.game_id = game.id) AS challenge_count FROM game WHERE user_id = 1",
+      "select * from statistics where user_id = ?",
       [userId]
     );
+    if (rows.length <= 0) {
+      return handleErrorResponse(res, "User have no statistics", 404);
+    }
+    res.json(rows[0]);
+  } catch (error) {
+    handleErrorResponse(res);
+  }
+};
+
+//TODO
+const createStatistics = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const [rows] = await db.pool.query("", [userId]);
     if (rows.length <= 0) {
       return handleErrorResponse(res, "No games played", 404);
     }
@@ -17,4 +31,24 @@ const getNumChallengesPlayed = async (req, res) => {
   } catch (error) {
     handleErrorResponse(res);
   }
+};
+
+//TODO
+const updateStatistics = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const [rows] = await db.pool.query("", [userId]);
+    if (rows.length <= 0) {
+      return handleErrorResponse(res, "No games played", 404);
+    }
+    res.json(rows);
+  } catch (error) {
+    handleErrorResponse(res);
+  }
+};
+
+module.exports = {
+  getStatistic,
+  createStatistics,
+  updateStatistics,
 };
