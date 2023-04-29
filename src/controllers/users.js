@@ -18,6 +18,7 @@ const getUser = async (req, res) => {
     }
     res.json(rows[0]);
   } catch (error) {
+    console.error(error);
     handleErrorResponse(res, error);
   }
 };
@@ -41,6 +42,7 @@ const createUser = async (req, res) => {
 
     res.json(rows);
   } catch (error) {
+    console.error(error);
     handleErrorResponse(res, error);
   }
 };
@@ -65,6 +67,7 @@ const updateUser = async (req, res) => {
 
     res.json(rows);
   } catch (error) {
+    console.error(error);
     handleErrorResponse(res, error);
   }
 };
@@ -85,6 +88,7 @@ const checkIfUsernameExist = async (req, res) => {
     }
     res.json({ message: "Username available" });
   } catch (error) {
+    console.error(error);
     handleErrorResponse(res, error);
   }
 };
@@ -105,6 +109,7 @@ const checkIfEmailExist = async (req, res) => {
     }
     res.json({ message: "Email available" });
   } catch (error) {
+    console.error(error);
     handleErrorResponse(res, error);
   }
 };
