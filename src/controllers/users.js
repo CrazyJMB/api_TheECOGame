@@ -1,8 +1,8 @@
-const path = require("path");
-const fs = require("fs");
-
 // Conexion a la BD
 const db = require("../services/database");
+
+const path = require("path");
+const fs = require("fs");
 
 const { handleErrorResponse } = require("../util/handleError");
 
