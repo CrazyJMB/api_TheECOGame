@@ -1,11 +1,11 @@
 const handleErrorResponse = (
   res,
-  message = "Something went wrong",
+  message = "Internal server error",
   code = 500
 ) => {
   console.log("Error - ", message);
   res.status(code);
-  res.send({ error: message });
+  res.send({ message: message });
 };
 
 module.exports = { handleErrorResponse };

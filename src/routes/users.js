@@ -3,11 +3,18 @@ const userController = require("../controllers/users");
 
 const router = Router();
 
-router.get("/", userController.getUsers);
+router.get("/", userController.getUser);
 router.post("/", userController.createUser);
-router.put("/", userController.updateUser);
-router.delete("/", userController.deleteUser);
-router.get("/:user", userController.getUser);
-router.get("/:user/password", userController.getPassword);
+
+// Update user
+router.put("/:userId", userController.updateUser);
+
+router.get("/checkUsername", userController.checkIfUsernameExist);
+router.get("/checkEmail", userController.checkIfEmailExist);
+
+router.get("/:userId/password", userController.checkPassword);
+
+// Avatar
+router.post("/:userId/avatar", userController.updateAvatar);
 
 module.exports = router;
