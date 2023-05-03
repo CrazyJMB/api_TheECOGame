@@ -189,11 +189,7 @@ const updateAvatar = async (req, res) => {
     const newAvatarPath = path.join(dir, `avatar${imageExtension}`);
     image.mv(newAvatarPath);
 
-    const url = path.join(
-      process.env.BASE_URL,
-      "uploads",
-      validUserId.toString()
-    );
+    const url = `${process.env.BASE_URL}/uploads/${validUserId.toString()}`;
 
     await db.pool.query("UPDATE `user` SET avatar = ? WHERE id = ?", [
       url,
