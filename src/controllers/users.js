@@ -1,6 +1,8 @@
 // Conexion a la BD
 const db = require("../services/database");
 
+require("dotenv").config();
+
 const path = require("path");
 const fs = require("fs");
 
@@ -148,10 +150,10 @@ const checkPassword = async (req, res) => {
 // Avatar
 const updateAvatar = async (req, res) => {
   try {
+    if (!req.files) return handleErrorResponse(res, "No image submitted", 400);
+
     const { image } = req.files;
     const { userId } = req.params;
-
-    if (!image) return handleErrorResponse(res, "No image submitted", 400);
 
     const validUserId = parseInt(userId);
     if (isNaN(validUserId)) {
@@ -187,8 +189,14 @@ const updateAvatar = async (req, res) => {
     const newAvatarPath = path.join(dir, `avatar${imageExtension}`);
     image.mv(newAvatarPath);
 
+    const url = path.join(
+      process.env.BASE_URL,
+      "uploads",
+      validUserId.toString()
+    );
+
     await db.pool.query("UPDATE `user` SET avatar = ? WHERE id = ?", [
-      newAvatarPath,
+      url,
       validUserId,
     ]);
 

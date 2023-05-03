@@ -1,6 +1,5 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
-const bodyParser = require("body-parser");
 
 // Routes
 const indexRoutes = require("./routes");
@@ -13,7 +12,7 @@ const { swaggerDocs } = require("./util/swagger");
 const app = express();
 
 // Midlewares
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(fileUpload());
 
 // Routes
