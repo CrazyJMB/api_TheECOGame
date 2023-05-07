@@ -68,6 +68,9 @@ const updateUser = async (req, res) => {
       [username, name, surname, password, email, userId]
     );
 
+    if (rows.affectedRows == 1) {
+      res.send({ message: "Information updated" });
+    }
     res.json(rows);
   } catch (error) {
     console.error(error);
