@@ -10,7 +10,8 @@ const { handleErrorResponse } = require("../util/handleError");
 
 const getUser = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email } = req.query;
+
     const [rows] = await db.pool.query(
       "SELECT * FROM user WHERE email LIKE ?",
       [email]
@@ -76,7 +77,7 @@ const updateUser = async (req, res) => {
 
 const checkIfUsernameExist = async (req, res) => {
   try {
-    const { username } = req.body;
+    const { username } = req.query;
 
     if (isEmpty(username))
       return handleErrorResponse(res, "Username not indicated", 400);
@@ -97,7 +98,7 @@ const checkIfUsernameExist = async (req, res) => {
 
 const checkIfEmailExist = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email } = req.query;
 
     if (isEmpty(email))
       return handleErrorResponse(res, "Email not indicated", 400);

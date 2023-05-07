@@ -12,7 +12,7 @@ router.put("/:userId", userController.updateUser);
 router.get("/checkUsername", userController.checkIfUsernameExist);
 router.get("/checkEmail", userController.checkIfEmailExist);
 
-router.get("/:userId/password", userController.checkPassword);
+router.put("/:userId/password", userController.checkPassword);
 
 // Avatar
 router.post("/:userId/avatar", userController.updateAvatar);
