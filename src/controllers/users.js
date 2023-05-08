@@ -122,15 +122,15 @@ const checkIfEmailExist = async (req, res) => {
 
 const checkPassword = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { email } = req.query;
     const { password } = req.body;
 
     if (isEmpty(password))
       return handleErrorResponse(res, "Password not indicated", 400);
 
     const [rows] = await db.pool.query(
-      "SELECT password FROM user WHERE id LIKE ?",
-      [userId]
+      "SELECT password FROM user WHERE email LIKE ?",
+      [email]
     );
 
     if (rows.length <= 0) {
@@ -146,8 +146,7 @@ const checkPassword = async (req, res) => {
 
     res.json({ message: "Password is correct" });
   } catch (error) {
-    console.error(error);
-    handleErrorResponse(res);
+    handleErrorResponse(res, error);
   }
 };
 
