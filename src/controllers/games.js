@@ -7,15 +7,16 @@ const createGame = async (req, res) => {
   try {
     const { user_id, state = 1 } = req.body;
 
-    const sql = `INSERT INTO game (user_id, state)
-    VALUES (?, ?)`;
+    const sql = `INSERT INTO game (user_id, state) VALUES (?, ?)`;
 
     const values = [user_id, state];
 
     const [rows] = await db.pool.query(sql, values);
 
     if (rows.affectedRows == 1) {
-      res.send({ message: "Game created" });
+      res.send({ id: rows.insertId });
+    } else {
+      handleErrorResponse(res, "Failed to create game");
     }
   } catch (error) {
     handleErrorResponse(res, error);
