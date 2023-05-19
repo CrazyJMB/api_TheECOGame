@@ -10,16 +10,26 @@ const { handleErrorResponse } = require("../util/handleError");
 
 const getUser = async (req, res) => {
   try {
-    const { email } = req.query;
+    if (req.query && req.query.email) {
+      const { email } = req.query;
+      const query = "SELECT * FROM user WHERE email LIKE ?";
+      const [rows] = await db.pool.query(query, [email]);
 
-    const [rows] = await db.pool.query(
-      "SELECT * FROM user WHERE email LIKE ?",
-      [email]
-    );
-    if (rows.length <= 0) {
-      return handleErrorResponse(res, "User not found", 404);
+      if (rows.length <= 0) {
+        return handleErrorResponse(res, "User not found", 404);
+      }
+
+      res.json(rows[0]);
+    } else {
+      const query = "SELECT * FROM user";
+      const [rows] = await db.pool.query(query);
+
+      if (rows.length <= 0) {
+        return handleErrorResponse(res, "No users", 404);
+      }
+
+      res.json(rows);
     }
-    res.json(rows[0]);
   } catch (error) {
     console.error(error);
     handleErrorResponse(res, error);
