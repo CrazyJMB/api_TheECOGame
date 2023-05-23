@@ -30,7 +30,7 @@ const getPositionFromSpecificUser = async (req, res) => {
     if (rows.length <= 0) {
       return handleErrorResponse(res, "Error getting ranking", 404);
     }
-    res.json(rows);
+    res.json(rows[0]);
   } catch (error) {
     handleErrorResponse(res, error);
   }
