@@ -48,13 +48,46 @@ const updateScore = async (req, res) => {
       handleErrorResponse(res, "Score can not be null");
     }
 
-    const [rows] = await db.pool.query(
+    // Actualizar la puntuación en la tabla 'game'
+    const [gameRows] = await db.pool.query(
       "UPDATE game SET score = ? WHERE (id = ?);",
       [score, id]
     );
 
-    if (rows.affectedRows == 1) {
-      res.send({ message: "Score saved" });
+    // Verificar si se actualizó la puntuación en la tabla 'game'
+    if (gameRows.affectedRows === 1) {
+      // Obtener el user_id de la partida actualizada
+      const [gameDataRows] = await db.pool.query(
+        "SELECT user_id FROM game WHERE id = ?;",
+        [id]
+      );
+
+      if (gameDataRows.length === 1) {
+        const userId = gameDataRows[0].user_id;
+
+        // Actualizar la puntuación en la tabla 'statistics' del usuario
+        const [statisticsRows] = await db.pool.query(
+          "UPDATE statistics SET score = score + ? WHERE user_id = ?;",
+          [score, userId]
+        );
+
+        // Verificar si se actualizó la puntuación en la tabla 'statistics'
+        if (statisticsRows.affectedRows === 1) {
+          res.send({ message: "Score saved" });
+        } else {
+          // Si no se actualizó la puntuación en la tabla 'statistics', manejar el error
+          handleErrorResponse(
+            res,
+            "Failed to update score in statistics table"
+          );
+        }
+      } else {
+        // Si no se encontró la partida correspondiente, manejar el error
+        handleErrorResponse(res, "Game not found");
+      }
+    } else {
+      // Si no se actualizó la puntuación en la tabla 'game', manejar el error
+      handleErrorResponse(res, "Failed to update score in game table");
     }
   } catch (error) {
     handleErrorResponse(res, error);
