@@ -331,7 +331,7 @@ const getStatistic = async (req, res) => {
       WHERE gc.challenge_type = 'HANGMAN' AND ho.ods_id = 17
       GROUP BY g.user_id
       ) ods17_hangman ON s.user_id = ods17_hangman.user_id
-      WHERE s.user_id = 1;
+      WHERE s.user_id = ?;
       `;
 
     const values = [userId];
