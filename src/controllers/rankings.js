@@ -6,7 +6,7 @@ const { handleErrorResponse } = require("../util/handleError");
 const getRanking = async (req, res) => {
   try {
     const [rows] = await db.pool.query(
-      "SELECT u.* FROM user u INNER JOIN statistics s ON u.id = s.user_id ORDER BY s.score DESC LIMIT 10;"
+      "SELECT u.username, u.avatar, s.score FROM user u INNER JOIN statistics s ON u.id = s.user_id ORDER BY s.score DESC LIMIT 10;"
     );
     if (rows.length <= 0) {
       return handleErrorResponse(res, "Error getting ranking", 404);
