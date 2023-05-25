@@ -6,16 +6,210 @@ const { handleErrorResponse } = require("../util/handleError");
 const getStatistic = async (req, res) => {
   try {
     const { userId } = req.params;
-    const [rows] = await db.pool.query(
-      "select * from statistics where user_id = ?",
-      [userId]
-    );
+    const sql = `SELECT s.*, 
+      ods1.count_ocurrences AS ODS_1,
+      ods2.count_ocurrences AS ODS_2,
+      ods3.count_ocurrences AS ODS_3,
+      ods4.count_ocurrences AS ODS_4,
+      ods5.count_ocurrences AS ODS_5,
+      ods6.count_ocurrences AS ODS_6,
+      ods7.count_ocurrences AS ODS_7,
+      ods8.count_ocurrences AS ODS_8,
+      ods9.count_ocurrences AS ODS_9,
+      ods10.count_ocurrences AS ODS_10,
+      ods11.count_ocurrences AS ODS_11,
+      ods12.count_ocurrences AS ODS_12,
+      ods13.count_ocurrences AS ODS_13,
+      ods14.count_ocurrences AS ODS_14,
+      ods15.count_ocurrences AS ODS_15,
+      ods16.count_ocurrences AS ODS_16,
+      ods17.count_ocurrences AS ODS_17
+      FROM statistics s
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 1
+      ) ods1 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 2
+      ) ods2 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 3
+      ) ods3 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 4
+      ) ods4 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 5
+      ) ods5 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 6
+      ) ods6 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 7
+      ) ods7 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 8
+      ) ods8 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 9
+      ) ods9 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 10
+      ) ods10 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 11
+      ) ods11 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 12
+      ) ods12 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 13
+      ) ods13 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 14
+      ) ods14 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 15
+      ) ods15 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 16
+      ) ods16 ON 1 = 1
+      LEFT JOIN (
+      SELECT COUNT(*) AS count_ocurrences
+      FROM game_challenge gc
+      JOIN game g ON gc.game_id = g.id
+      JOIN question q ON gc.challenge_id = q.challenge_details_id
+      JOIN question_ods qo ON q.challenge_details_id = qo.question_id
+      WHERE g.user_id = ?
+      AND qo.ods_id = 17
+      ) ods17 ON 1 = 1
+      WHERE s.user_id = ?;
+      `;
+
+    const values = [
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+      userId,
+    ];
+
+    const [rows] = await db.pool.query(sql, values);
+
     if (rows.length <= 0) {
       return handleErrorResponse(res, "User have no statistics", 404);
     }
     res.json(rows[0]);
   } catch (error) {
-    handleErrorResponse(res);
+    handleErrorResponse(res, error);
   }
 };
 
