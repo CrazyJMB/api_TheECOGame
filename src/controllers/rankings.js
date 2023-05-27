@@ -17,12 +17,12 @@ const getRanking = async (req, res) => {
   }
 };
 
-const getPositionFromSpecificUser = async (req, res) => {
+const getFromSpecificUser = async (req, res) => {
   try {
     const { userId } = req.params;
 
     const sql =
-      "SELECT COUNT(*) + 1 AS posicion FROM statistics WHERE score > (SELECT score FROM statistics WHERE user_id = ?);";
+      "SELECT (SELECT COUNT(*) + 1 FROM statistics WHERE score > s.score) AS position, s.score FROM statistics s WHERE s.user_id = ?";
     const values = [userId];
 
     const [rows] = await db.pool.query(sql, values);
@@ -39,5 +39,5 @@ const getPositionFromSpecificUser = async (req, res) => {
 
 module.exports = {
   getRanking,
-  getPositionFromSpecificUser,
+  getFromSpecificUser,
 };

@@ -5,6 +5,6 @@ const router = Router();
 
 router.get("/", rankingController.getRanking);
 
-router.get("/:userId", rankingController.getPositionFromSpecificUser);
+router.get("/:userId", rankingController.getFromSpecificUser);
 
 module.exports = router;
