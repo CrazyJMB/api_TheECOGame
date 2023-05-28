@@ -365,7 +365,7 @@ const updateLostCount = async (req, res) => {
   try {
     const { userId } = req.params;
     const [rows] = await db.pool.query(
-      "UPDATE statistics SET lose_count = win_count + 1 WHERE (user_id = ?);",
+      "UPDATE statistics SET lose_count = lose_count + 1 WHERE (user_id = ?);",
       [userId]
     );
 
@@ -379,7 +379,7 @@ const updateQuitCount = async (req, res) => {
   try {
     const { userId } = req.params;
     const [rows] = await db.pool.query(
-      "UPDATE statistics SET quit_count = win_count + 1 WHERE (user_id = ?);",
+      "UPDATE statistics SET quit_count = quit_count + 1 WHERE (user_id = ?);",
       [userId]
     );
 
