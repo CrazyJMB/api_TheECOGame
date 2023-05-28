@@ -45,7 +45,7 @@ const updateScore = async (req, res) => {
     const { score } = req.body;
 
     if (isEmpty(score)) {
-      handleErrorResponse(res, "Score can not be null");
+      handleErrorResponse(res, "Score can not be null", 404);
     }
 
     // Actualizar la puntuación en la tabla 'game'
